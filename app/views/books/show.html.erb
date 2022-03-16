@@ -1,2 +1,31 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<%= render 'books/info',user:@user %>
+<div class="col-md8 offset-md-1">
+<h2>Book detail</h2>
+<table class="table">
+  <tr>
+    <td><%= link_to user_path(@book.user.id) do %>
+    　<% if @book.user.profile_image.attached? %>
+      <%= image_tag @book.user.profile_image,size:"40x40" %>
+     　<% else %>
+     　<%= image_tag 'no_image',size:"40x40" %>
+     　<% end %>
+     　<br>
+     　<%= @book.user.name %>
+     　<% end %>
+    </td>
+    <td>
+      <%= @book.title %>
+    </td>
+    <td>
+      <%= @book.body %>
+    </td>
+    <td>
+      <%= link_to "Edit",edit_book_path(@book) %>
+    </td>
+    <td>
+      <%= link_to "Destroy",book_path(@book.id),method: :delete,"data-confirm"=>"本当に消しますか？" %>
+    </td>
+  </tr>
+</table>
+</div>
+

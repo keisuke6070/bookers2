@@ -2,12 +2,12 @@
 <html>
   <head>
     <title>Bookers2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -15,10 +15,10 @@
      <nav class="navbar navbar-dark bg-dark">
        <div class="container">
       <%= link_to "Bookers",root_path,class:'navbar-brand' %>
-       <ul class="navbar-nav ml-auto">
+       <ul class="navbar-nav navbar-expand-lg  ml-auto">
       <% if user_signed_in? %>
       <li>
-        <%= link_to "Home",root_path,class:'nav-link text-light' %>
+        <%= link_to "Home",user_path(current_user.id),class:'nav-link text-light' %>
       </li>
       <li>
         <%= link_to "Users",users_path,class:'nav-link text-light' %>
@@ -49,6 +49,9 @@
     </nav>
 　</header>
 　<main class="mb-auto">
+　  <% flash.each do |key, value| %>
+    <%= content_tag(:p, value, class: "#{key}") %>
+    <% end %>
 　 <%= yield %>
 　</main>
 
