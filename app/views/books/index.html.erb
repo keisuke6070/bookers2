@@ -1,4 +1,12 @@
-  <%= render 'info',user:@user %>
+<% if @book.errors.any? %>
+ <h3><%= @book.errors.count %>errors prohibited this obj from being saved:</h3>
+ <ul>
+   <% @book.errors.full_messages.each do |message| %>
+   <li><%= message %></li>
+   <% end %>
+ </ul>
+<% end %>
+<%= render 'info',user:@user,book:@book %>
   <div class="col-md-8 offset-md-1">
     <h2>Books</h2>
     <table class="table table-hover table-inverse">
@@ -14,12 +22,8 @@
      <tr>
      <td>
      <%= link_to user_path(book.user.id) do %>
-    　<% if book.user.profile_image.attached? %>
-      <%= image_tag book.user.profile_image,size:"40x40" %>
-      <% else %>
-      <%= image_tag 'no_image',size:"40x40" %>
-      <% end %>
-      <% end %>
+    　<%= image_tag book.user.get_profile_image(40,40) %>
+    　<% end %>
      </td>
      <td>
        <%= link_to book_path(book.id) do  %>
